@@ -28,16 +28,16 @@
                 <Label Text="Seleziona la base della tua pizza: "
                        FontAttributes="Bold"
                        />
+                <!--NOTE: essendo 'AvailableBases' una ObservableCollection al cambiamento del valore delle proprietà queste vengono aggiornate automaticamente senza bisogno di ulteriori interventi. lo stesso per gli elementi sotto-->
                 <CollectionView ItemsSource="{Binding AvailableBases}"
                                 >
                     <CollectionView.ItemTemplate >
-                        <DataTemplate x:DataType="models:ItemModel"
-                                      >
-                            <!--NOTE: è stato specificato il DataType del DataTemplate per permettere l'accesso alle proprietà della classe.-->
+                        <DataTemplate x:DataType="models:ItemModel">
+                            <!--NOTE: è stato specificato il DataType del DataTemplate in questo modo ho l'accesso alle proprietà della classe.-->
                             <RadioButton Content="{Binding Value}"
                                          IsChecked="{Binding IsSelected}"
                                          />
-                            <!--NOTE: essendo 'AvailableBases' una ObservableCollection al cambiamento del valore delle proprietà queste vengono aggiornate automaticamente senza bisogno di ulteriori interventi.-->
+                           
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -50,14 +50,10 @@
                        />
                 <CollectionView ItemsSource="{Binding AvailableToppings}">
                     <CollectionView.ItemTemplate >
-                        <DataTemplate x:DataType="models:ItemModel"
-                                      >
-                            <!--NOTE: è stato specificato il DataType del DataTemplate per permettere l'accesso alle proprietà della classe.-->
+                        <DataTemplate x:DataType="models:ItemModel">                            
                             <HorizontalStackLayout>
                                 <CheckBox IsChecked="{Binding IsSelected}"
-                                          Color="{StaticResource CustomOrange}"
-                                          />
-                                <!--NOTE: 'AvailableToppings' è una ObservableCollection, quindi anche in questo caso le proprietà si aggiornano automaticamente.-->
+                                          Color="{StaticResource CustomOrange}"/>                                
                                 <!--NOTE: il colore 'CustomOrange' è definito all'interno del file Colors.xaml (cartella Resources).-->
                                 <Label Text="{Binding Value}"
                                        VerticalOptions="Center"

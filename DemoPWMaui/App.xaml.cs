@@ -8,9 +8,7 @@ namespace DemoPWMaui
         {
             InitializeComponent();
 
-            // NAVIGAZIONE: impostata la schermata iniziale dell'app,
-            // ovvero la 'root page' alla base dello stack di navigazione.  
-
+            // impostata la schermata iniziale dell'app (la pagine alla base dello stack di navigazione)  
             MainPage = new NavigationPage(new ListPage());
         }
     }

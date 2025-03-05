@@ -4,8 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DemoPWMaui
 {
-    //punto di ingresso dell'applicazione,
-    //ovvero dove viene costruita e ne vengono configurati vari aspetti
+    //punto di ingresso dell'applicazione, qui viene costruita e ne vengono configurati vari aspetti
     public static class MauiProgram
     {
         public static MauiApp CreateMauiApp()

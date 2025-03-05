@@ -20,7 +20,6 @@ public partial class OrderPage : ContentPage
 
     // I GESTORI DEGLI EVENTI generati dai controlli (eg: button, entry) implementati nella view devono essere gestiti all'interno del file .xaml.cs. 
     // Questo perché le informazioni collegate ai controlli sono accessibili solo dentro alla stessa view (eg: i caratteri digitati dell'utente in una entry).
-
     public void OnNotesEntryCompleted(object sender, EventArgs e)
     {
         //ricorda: viene chiamato solo premendo invio
