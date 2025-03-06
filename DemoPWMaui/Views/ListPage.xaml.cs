@@ -12,6 +12,8 @@ public partial class ListPage : ContentPage
         BindingContext = new ListViewModel();
     }
 
+    //NewOrder e OpenOrder sono command presenti nella view e non nel view model perchè sono inerenti alla UI (gestiscono la navigazione apertura/chiusura di pagine) e non contengono logica
+
     // RELAY COMMAND crea un metodo che è possibile richiamare nel codice xaml.
     // Questo attributo è utilizzabile in tutti i file scritti in codice C# (quindi sia nel file .xaml.cs della view che nel viewmodel).
     // Il nome del metodo esposto viene generato secondo queste regole:
@@ -34,4 +36,6 @@ public partial class ListPage : ContentPage
     {
         await Navigation.PushAsync(new OrderPage(orderId));
     }
+
+    
 }
