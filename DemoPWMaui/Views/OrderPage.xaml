@@ -15,10 +15,10 @@
             - seleziona lista di ingredienti
             - indica eventuali preferenze personali 
             - indica numero di pizze così specificate da ordinare
-            - salva ordine (al click si torna alla pagina ListPage che conterrà la lista di ordini aggiornata)
+            - salva ordine (al click si torna alla pagina ListPage che conterrà la lista di ordini aggiornata con questo nuovo ordine salvato)
         -->
 
-
+<!-- pagina "scrollabile" verticalmente -->
     <ScrollView>
         <VerticalStackLayout Margin="20, 5"
                              Spacing="20">
