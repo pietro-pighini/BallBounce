@@ -9,7 +9,7 @@
         <Image Source="logo.png" HeightRequest="300" HorizontalOptions="Center"/>
 
         <!-- Inserimento username -->
-        <!--colore del background color di frame trasparente pk serve solo quello dle frame-->
+        <!--colore del background color di frame trasparente pk serve solo quello delle frame-->
         <!--uso un frame perché ha il corner radius-->
         <Frame
             BackgroundColor="White"

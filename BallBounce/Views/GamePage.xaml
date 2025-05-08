@@ -3,10 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BallBounceLibrary.Views.GamePage"
              Title="{Binding GameBall}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+        <Grid>
+        <!-- Imposta una singola cella per sovrapporre tutti gli elementi -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Piattaforme (posizionate con margini) -->
+        <BoxView Color="White" WidthRequest="80" HeightRequest="10"
+                 Margin="50,50,0,0"
+                 VerticalOptions="Start" HorizontalOptions="Start" />
+
+        <BoxView Color="White" WidthRequest="80" HeightRequest="10"
+                 Margin="250,80,0,0"
+                 VerticalOptions="Start" HorizontalOptions="Start" />
+
+        <BoxView Color="LightGreen" WidthRequest="80" HeightRequest="10"
+                 Margin="30,300,0,0"
+                 VerticalOptions="Start" HorizontalOptions="Start" />
+
+        <!-- Fulmine -->
+        <Label Text="⚡" FontSize="24"
+               Margin="60,130,0,0"
+               VerticalOptions="Start" HorizontalOptions="Start" />
+
+        <!-- Piattaforma rossa con punte -->
+        <StackLayout Orientation="Vertical"
+                     Margin="200,250,0,0"
+                     VerticalOptions="Start" HorizontalOptions="Start">
+            <BoxView Color="#FF6B6B" WidthRequest="80" HeightRequest="10"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
+                <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
+                <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
+            </StackLayout>
+        </StackLayout>
+
+        <!-- Giocatore -->
+        <Grid Margin="80,370,0,0"
+              WidthRequest="40" HeightRequest="40"
+              VerticalOptions="Start" HorizontalOptions="Start">
+            <Ellipse Stroke="White" StrokeThickness="2" Fill="White"/>
+            <Label Text="👓" FontSize="18"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+
+    </Grid>
 </ContentPage>
