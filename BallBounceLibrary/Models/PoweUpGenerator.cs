@@ -16,7 +16,7 @@ namespace BallBounceLibrary.Models
             }
         }
 
-        public Coordinates Generate()
+        public List<Coordinates> Generate()
         {
             throw new NotImplementedException();
         }

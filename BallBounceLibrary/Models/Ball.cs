@@ -49,6 +49,6 @@ namespace BallBounceLibrary.Models
                 PositionOfBall.Y -= BOOST_UNITY;
             }
         }
-        //@TODO nel metodo del GamePAge.xaml.cs dove fai il salot aggiungi un for che richiama jump finoa a quando non satura la gravitá che aumenta di 0.5 ogni volta, partendo da 0.5
+        //@TODO nel metodo del GamePAge.xaml.cs dove fai il salto aggiungi un for che richiama jump finoa a quando non satura la gravitá che aumenta di 0.5 ogni volta, partendo da 0.5
     }
 }
