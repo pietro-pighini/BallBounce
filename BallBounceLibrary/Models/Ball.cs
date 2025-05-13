@@ -36,7 +36,7 @@ namespace BallBounceLibrary.Models
             {
                 PositionOfBall.X += 5 ;
             }
-            else
+            else//-1 va a sinistra
             {
                 PositionOfBall.Y -= 5 ;
             }

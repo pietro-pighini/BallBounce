@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallBounceLibrary", "BallBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallBounce", "BallBounce\BallBounce.csproj", "{17982A13-6DA6-41FA-9262-1E0F36AFEA1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallBounceTests", "BallBounceTests\BallBounceTests.csproj", "{BBDF4126-5FDF-4DB3-B564-FC255129FC0C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,10 +23,6 @@ Global
 		{17982A13-6DA6-41FA-9262-1E0F36AFEA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17982A13-6DA6-41FA-9262-1E0F36AFEA1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17982A13-6DA6-41FA-9262-1E0F36AFEA1E}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{BBDF4126-5FDF-4DB3-B564-FC255129FC0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBDF4126-5FDF-4DB3-B564-FC255129FC0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBDF4126-5FDF-4DB3-B564-FC255129FC0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBDF4126-5FDF-4DB3-B564-FC255129FC0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,14 +31,6 @@ namespace BallBounceLibrary.Models
             }
         }
 
-        internal PoweUpGenerator PoweUpGenerator
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public TrapGenerator TrapGenerator
         {
             get => default;

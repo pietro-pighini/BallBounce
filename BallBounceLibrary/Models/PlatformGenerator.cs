@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace BallBounceLibrary.Models
 {
-    internal class PlatformGenerator:IGeneratorOfCoord
+    public class PlatformGenerator:IGeneratorOfCoord
     {
         private const int WorldHeight = 2000; // Altezza logica totale del mondo
         private const int ScreenWidth = 360;  // Larghezza logica dello schermo
         private const int MinYDistance = 40;  // Distanza minima tra una piattaforma e l'altra
         private const int MaxYDistance = 100; // Distanza massima
         private const int PlatformWidth = 80; // Larghezza di ogni piattaforma
-
+        public List<Coordinates> platforms = new List<Coordinates>();
         public List<Coordinates> Generate()
         {
-            List<Coordinates> platforms = new List<Coordinates>();
+            
+            //aggiungi la piattaforma iniziale in centro in basso
+            platforms.Add(new Coordinates(ScreenWidth / 2 - PlatformWidth / 2, WorldHeight - 20));
             int currentY = 0;
             Random random = new Random();
             while (currentY < WorldHeight)
@@ -29,19 +31,5 @@ namespace BallBounceLibrary.Models
             }
             return platforms;
         }
-
-
-
-
-
-        public Platfrm Platfrm
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-
     }
 }
