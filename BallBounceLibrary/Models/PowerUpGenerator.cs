@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BallBounceLibrary.Models
 {
-    public class PowerUpGenerator(PlatformGenerator platforms):IGeneratorOfCoord
+    public class PowerUpGenerator:IGeneratorOfCoord
     {
         private const int WorldHeight = 2000; // Altezza logica totale del mondo
         private const int ScreenWidth = 360;  // Larghezza logica dello schermo
@@ -14,16 +14,29 @@ namespace BallBounceLibrary.Models
         private const int MaxYDistance = 100; // Distanza massima
         private const int PlatformWidth = 80; // Larghezza di ogni piattaforma
         private const int PowerUpWidth = 20; // Larghezza di ogni powerup
-        private PlatformGenerator platforms;
+        public List<Coordinates> AllPowerUps { get; private set; } = new List<Coordinates>();
+        public List<Platforms> Platforms { get; private set; } = new List<Platforms>();
+        public PowerUpGenerator(List<Platforms> platforms)
+        {
+            Platforms = platforms;
+            AllPowerUps = Generate();
+        }
         public List<Coordinates> Generate()
         {
             //il powerup viene generato sopra le piattaforme
-            List<Coordinates> PowerUps = new List<Coordinates>();
-            foreach(var platform in platforms.platforms)
+            List<Coordinates> powerUps = new List<Coordinates>();
+            Random random = new Random();
+            foreach (var platform in Platforms)
             {
-                PowerUps.Add(new Coordinates((platform.X + PlatformWidth / 2 - PowerUpWidth / 2) ,(platform.Y - 20)));//la x lo centra e la y é distante di 20 di altezza.
+                if (random.Next(0, 100) < 30) // 30% probabilità di spawnare powerup
+                {
+                    float powerUpX = platform.CoordinatesOfPlatforms.X + PlatformWidth / 2f - PowerUpWidth / 2f;
+                    float powerUpY = platform.CoordinatesOfPlatforms.Y - 20f;
+
+                    powerUps.Add(new Coordinates(powerUpX,powerUpY));
+                }
             }
-            return PowerUps;
+            return powerUps;
         }
     }
 }

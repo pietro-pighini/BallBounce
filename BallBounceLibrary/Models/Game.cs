@@ -9,20 +9,48 @@ namespace BallBounceLibrary.Models
     public class Game //guarda insieme agli altri la logica di implementazione della generazione dei vari items
     {
         public Ball Player { get; private set; }
-        public List<TrampolineGenerator> Trampolines { get; private set; }
-        public List<PlatformGenerator> Platforms { get; private set; }
-        public List<PowerUpGenerator> PowerUps { get; private set; }
-        public List<TrapGenerator> Traps { get; private set; }
+        public PlatformGenerator Platforms { get; private set; }
+        public PowerUpGenerator PowerUps { get; private set; }
 
 
-        public Game(Ball player, List<TrampolineGenerator> trampolines, List<PlatformGenerator>platforms, List<PowerUpGenerator> powerUps, List<TrapGenerator> traps)
+        public Game(Ball player, PlatformGenerator platforms, PowerUpGenerator powerUps)
         {
             Player = player;
-            Trampolines = trampolines;
             Platforms = platforms;
             PowerUps = powerUps;
-            Traps = traps;
         }
-
+        /*
+        public void Jump(double Gravity)
+        {
+            try
+            {
+               Player.Jump(Gravity);
+                // Controlla se il giocatore ha colpito una piattaforma
+                foreach (var platform in Platforms.AllPlatforms)
+                {
+                    if (Player.IsOnPlatform(platform))
+                    {
+                        Player.Y = platform.CoordinatesOfPlatforms.Y - Player.Radius; // Posiziona il giocatore sopra la piattaforma
+                        Player.VelocityY = 0; // Ferma il movimento verticale
+                        break;
+                    }
+                }
+                // Controlla se il giocatore ha colpito un power-up
+                foreach (var powerUp in PowerUps.AllPowerUps)
+                {
+                    if (Player.IsOnPowerUp(powerUp))
+                    {
+                        // Gestisci l'acquisizione del power-up
+                        PowerUps.AllPowerUps.Remove(powerUp);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during jump: {ex.Message}");
+            }
+        }
+        */
     }
 }
