@@ -4,53 +4,54 @@
              x:Class="BallBounceLibrary.Views.GamePage"
              Title="{Binding GameBall}">
 
-        <Grid>
-        <!-- Imposta una singola cella per sovrapporre tutti gli elementi -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <AbsoluteLayout>
+        <!-- Grid per le piattaforme -->
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+              AbsoluteLayout.LayoutFlags="All">
 
-        <!-- Piattaforme (posizionate con margini) -->
-        <BoxView Color="White" WidthRequest="80" HeightRequest="10"
-                 Margin="50,50,0,0"
-                 VerticalOptions="Start" HorizontalOptions="Start" />
+            <!-- Prima piattaforma (immagine) -->
+            <Image Source="platform_white.png" 
+                   WidthRequest="80" HeightRequest="10"
+                   Margin="50,50,0,0"
+                   HorizontalOptions="Start" VerticalOptions="Start" />
 
-        <BoxView Color="White" WidthRequest="80" HeightRequest="10"
-                 Margin="250,80,0,0"
-                 VerticalOptions="Start" HorizontalOptions="Start" />
+            <!-- Seconda piattaforma -->
+            <Image Source="platform_white.png"
+                   WidthRequest="80" HeightRequest="10"
+                   Margin="250,80,0,0"
+                   HorizontalOptions="Start" VerticalOptions="Start" />
 
-        <BoxView Color="LightGreen" WidthRequest="80" HeightRequest="10"
-                 Margin="30,300,0,0"
-                 VerticalOptions="Start" HorizontalOptions="Start" />
+            <!-- Terza piattaforma (verde) -->
+            <Image Source="platform_green.png"
+                   WidthRequest="80" HeightRequest="10"
+                   Margin="30,300,0,0"
+                   HorizontalOptions="Start" VerticalOptions="Start" />
+
+            <!-- Piattaforma rossa con punte -->
+            <StackLayout Orientation="Vertical"
+                         Margin="200,250,0,0"
+                         HorizontalOptions="Start" VerticalOptions="Start">
+                <Image Source="platform_red.png" WidthRequest="80" HeightRequest="10"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
+                    <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
+                    <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
 
         <!-- Fulmine -->
         <Label Text="⚡" FontSize="24"
-               Margin="60,130,0,0"
-               VerticalOptions="Start" HorizontalOptions="Start" />
-
-        <!-- Piattaforma rossa con punte -->
-        <StackLayout Orientation="Vertical"
-                     Margin="200,250,0,0"
-                     VerticalOptions="Start" HorizontalOptions="Start">
-            <BoxView Color="#FF6B6B" WidthRequest="80" HeightRequest="10"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
-                <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
-                <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
-            </StackLayout>
-        </StackLayout>
+               AbsoluteLayout.LayoutBounds="60,130,24,24"
+               AbsoluteLayout.LayoutFlags="PositionProportional" />
 
         <!-- Giocatore -->
-        <Grid Margin="80,370,0,0"
-              WidthRequest="40" HeightRequest="40"
-              VerticalOptions="Start" HorizontalOptions="Start">
+        <Grid AbsoluteLayout.LayoutBounds="80,370,40,40"
+              AbsoluteLayout.LayoutFlags="PositionProportional">
             <Ellipse Stroke="White" StrokeThickness="2" Fill="White"/>
             <Label Text="👓" FontSize="18"
                    HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
 
-    </Grid>
+    </AbsoluteLayout>
 </ContentPage>
