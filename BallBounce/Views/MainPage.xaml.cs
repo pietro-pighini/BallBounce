@@ -1,3 +1,4 @@
+using BallBounceLibrary.Views;
 namespace BallBounce.Views;
 
 public partial class MainPage : ContentPage
@@ -7,12 +8,10 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    private void OnPlayClicked(object sender, EventArgs e)
+    private async void OnPlayClicked(object sender, EventArgs e)
     {
-        //devo creare la finestra GamePage
-        //devo creare l'oggetto Game da passare a GamePage
-        //devo quindi salvarmi il nome del giocatore
-        //creando un oggetto ball
+        // Naviga semplicemente verso GamePage
+        await Navigation.PushAsync(new GamePage());
     }
 
     private void OnRulesClicked(object sender, EventArgs e)

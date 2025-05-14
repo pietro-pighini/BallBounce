@@ -1,57 +1,57 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BallBounceLibrary.Views.GamePage"
-             Title="{Binding GameBall}">
+             Title="{Binding GameBall}"
+             BackgroundColor="Black">
 
     <AbsoluteLayout>
-        <!-- Grid per le piattaforme -->
-        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
-              AbsoluteLayout.LayoutFlags="All">
+        <!-- Piattaforme -->
+        <!-- Prima piattaforma -->
+        <Image Source="platform.png" 
+               AbsoluteLayout.LayoutBounds="50,50,80,10"
+               AbsoluteLayout.LayoutFlags="None"/>
 
-            <!-- Prima piattaforma (immagine) -->
-            <Image Source="platform_white.png" 
-                   WidthRequest="80" HeightRequest="10"
-                   Margin="50,50,0,0"
-                   HorizontalOptions="Start" VerticalOptions="Start" />
+        <!-- Seconda piattaforma -->
+        <Image Source="platform.png"
+               AbsoluteLayout.LayoutBounds="250,80,80,10"
+               AbsoluteLayout.LayoutFlags="None"/>
 
-            <!-- Seconda piattaforma -->
-            <Image Source="platform_white.png"
-                   WidthRequest="80" HeightRequest="10"
-                   Margin="250,80,0,0"
-                   HorizontalOptions="Start" VerticalOptions="Start" />
+        <!-- Piattaforma verde per salti -->
+        <Image Source="jumpingplat.png"
+               AbsoluteLayout.LayoutBounds="30,300,80,10"
+               AbsoluteLayout.LayoutFlags="None"/>
 
-            <!-- Terza piattaforma (verde) -->
-            <Image Source="platform_green.png"
-                   WidthRequest="80" HeightRequest="10"
-                   Margin="30,300,0,0"
-                   HorizontalOptions="Start" VerticalOptions="Start" />
+        <!-- Piattaforma rossa con trappola -->
+        <Image Source="trap.png"
+               AbsoluteLayout.LayoutBounds="200,250,80,25"
+               AbsoluteLayout.LayoutFlags="None"/>
 
-            <!-- Piattaforma rossa con punte -->
-            <StackLayout Orientation="Vertical"
-                         Margin="200,250,0,0"
-                         HorizontalOptions="Start" VerticalOptions="Start">
-                <Image Source="platform_red.png" WidthRequest="80" HeightRequest="10"/>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
-                    <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
-                    <BoxView Color="White" WidthRequest="4" HeightRequest="15" Margin="4,0"/>
-                </StackLayout>
-            </StackLayout>
-        </Grid>
-
-        <!-- Fulmine -->
-        <Label Text="⚡" FontSize="24"
+        <!-- Boost -->
+        <Image Source="boost.png"
                AbsoluteLayout.LayoutBounds="60,130,24,24"
-               AbsoluteLayout.LayoutFlags="PositionProportional" />
+               AbsoluteLayout.LayoutFlags="None"/>
 
-        <!-- Giocatore -->
-        <Grid AbsoluteLayout.LayoutBounds="80,370,40,40"
-              AbsoluteLayout.LayoutFlags="PositionProportional">
-            <Ellipse Stroke="White" StrokeThickness="2" Fill="White"/>
-            <Label Text="👓" FontSize="18"
-                   HorizontalOptions="Center" VerticalOptions="Center"/>
-        </Grid>
+        <!-- Giocatore (palla) -->
+        <Image Source="ball.png"
+               AbsoluteLayout.LayoutBounds="80,370,40,40"
+               AbsoluteLayout.LayoutFlags="None"/>
 
+        <!-- Pulsante Freccia SINISTRA -->
+        <ImageButton Source="leftarrow.png"  
+            AbsoluteLayout.LayoutBounds="20,0.9,80,80"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     BackgroundColor="White"
+                     Command="{Binding MoveLeftCommand}"
+                     Scale="1.5"
+                     Margin="10"/>
+
+            <!-- Pulsante Freccia DESTRA -->
+        <ImageButton Source="rightarrow.png"  
+                AbsoluteLayout.LayoutBounds="0.9,0.9,80,80"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     BackgroundColor="White"
+                     Command="{Binding MoveRightCommand}"
+                     Scale="1.5"
+                     Margin="10"/>
     </AbsoluteLayout>
 </ContentPage>
