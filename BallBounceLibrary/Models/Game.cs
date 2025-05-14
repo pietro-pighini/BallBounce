@@ -19,38 +19,34 @@ namespace BallBounceLibrary.Models
             Platforms = platforms;
             PowerUps = powerUps;
         }
-        /*
-        public void Jump(double Gravity)
+        public bool IsJumping { get; private set; }
+        public bool HasTakenPowerUp { get; private set; }
+        public void Jump(double Gravity)//sarà compito dello xaml.cs controllare la frequenza di controllo della verifica delle coincidenze
+        //delle coordinate
         {
-            try
+            Player.Jump(Gravity);
+            // Controlla se il giocatore ha colpito una piattaforma
+            foreach (var platform in Platforms.AllPlatforms)
             {
-               Player.Jump(Gravity);
-                // Controlla se il giocatore ha colpito una piattaforma
-                foreach (var platform in Platforms.AllPlatforms)
+                if (Player.IsOnPlatform(platform))
                 {
-                    if (Player.IsOnPlatform(platform))
-                    {
-                        Player.Y = platform.CoordinatesOfPlatforms.Y - Player.Radius; // Posiziona il giocatore sopra la piattaforma
-                        Player.VelocityY = 0; // Ferma il movimento verticale
-                        break;
-                    }
-                }
-                // Controlla se il giocatore ha colpito un power-up
-                foreach (var powerUp in PowerUps.AllPowerUps)
-                {
-                    if (Player.IsOnPowerUp(powerUp))
-                    {
-                        // Gestisci l'acquisizione del power-up
-                        PowerUps.AllPowerUps.Remove(powerUp);
-                        break;
-                    }
+                    Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
+                    IsJumping = false; // Ferma il movimento verticale
+                    break;
                 }
             }
-            catch (Exception ex)
+            // Controlla se il giocatore ha colpito un power-up
+            foreach (var powerUp in PowerUps.AllPowerUps)
             {
-                Console.WriteLine($"Error during jump: {ex.Message}");
+                if (Player.IsOnPowerUp(powerUp))
+                {
+                    // Gestisci l'acquisizione del power-up
+                    PowerUps.AllPowerUps.Remove(powerUp);
+                    HasTakenPowerUp = true;
+                    break;
+                }
             }
         }
-        */
+        
     }
 }

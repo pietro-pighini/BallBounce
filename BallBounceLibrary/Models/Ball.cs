@@ -37,7 +37,6 @@ namespace BallBounceLibrary.Models
             {
                 PositionOfBall.Y -= 5;
             }
-
         }
         public void Jump(double Gravity)//nello xaml.cs va controlato il boost
         {
@@ -51,6 +50,22 @@ namespace BallBounceLibrary.Models
             {
                 PositionOfBall.Y = 2000; // Limita la Y alla massima altezza
             }
+        }
+        public bool IsOnPlatform(Platforms platform )
+        {
+            if ((PositionOfBall.X <= platform.CoordinatesOfPlatforms.X+20.0 )&&(PositionOfBall.X>= platform.CoordinatesOfPlatforms.X + 20.0) && (PositionOfBall.Y <= platform.CoordinatesOfPlatforms.Y + 20.0) && (PositionOfBall.Y>= platform.CoordinatesOfPlatforms.Y + 20.0))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool IsOnPowerUp(Coordinates powerup)
+        {
+            if ((PositionOfBall.X <= powerup.X + 20.0) && (PositionOfBall.X >= powerup.X + 20.0) && (PositionOfBall.Y <= powerup.Y + 20.0) && (PositionOfBall.Y >= powerup.Y + 20.0))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
