@@ -12,7 +12,7 @@ public partial class MainPage : ContentPage
         //devo creare la finestra GamePage
         //devo creare l'oggetto Game da passare a GamePage
         //devo quindi salvarmi il nome del giocatore
-        //creando un ogetto ball
+        //creando un oggetto ball
     }
 
     private void OnRulesClicked(object sender, EventArgs e)
