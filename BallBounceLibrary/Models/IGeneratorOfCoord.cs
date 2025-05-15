@@ -9,6 +9,6 @@ namespace BallBounceLibrary.Models
     public interface IGeneratorOfCoord
     {
 
-        public Coordinates Generate();
+        public List<Coordinates> Generate();
     }
 }
