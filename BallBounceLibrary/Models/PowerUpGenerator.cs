@@ -30,9 +30,8 @@ namespace BallBounceLibrary.Models
             {
                 if (random.Next(0, 100) < 30) // 30% probabilità di spawnare powerup
                 {
-                    float powerUpX = platform.CoordinatesOfPlatforms.X + PlatformWidth / 2f - PowerUpWidth / 2f;
-                    float powerUpY = platform.CoordinatesOfPlatforms.Y - 20f;
-
+                    double powerUpX = platform.CoordinatesOfPlatforms.X + PlatformWidth / 2 - PowerUpWidth / 2;
+                    double powerUpY = platform.CoordinatesOfPlatforms.Y - 0.020;
                     powerUps.Add(new Coordinates(powerUpX,powerUpY));
                 }
             }

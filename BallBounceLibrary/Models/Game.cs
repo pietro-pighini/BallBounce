@@ -19,19 +19,46 @@ namespace BallBounceLibrary.Models
             Platforms = platforms;
             PowerUps = powerUps;
         }
-        public bool IsJumping { get; private set; }
+        
         public bool HasTakenPowerUp { get; private set; }
-        public void Jump(double Gravity)//sarà compito dello xaml.cs controllare la frequenza di controllo della verifica delle coincidenze
-        //delle coordinate
+        public void Move(int direction)
         {
-            Player.Jump(Gravity);
+            Player.Move(direction);
             // Controlla se il giocatore ha colpito una piattaforma
             foreach (var platform in Platforms.AllPlatforms)
             {
                 if (Player.IsOnPlatform(platform))
                 {
                     Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
-                    IsJumping = false; // Ferma il movimento verticale
+                    Player.IsJumping = false; // Ferma il movimento verticale
+                    break;
+                }
+            }
+        }
+        public double JumpHeigh { get; set; }
+        public void Jump(double Gravity)//sarà compito dello xaml.cs controllare la frequenza di controllo della verifica delle coincidenze
+        //delle coordinate
+        {
+            Player.Jump(Gravity);
+            
+            JumpHeigh -= Ball.BOOST_UNITY;
+            // Controlla se il giocatore ha colpito una piattaforma
+            foreach (var platform in Platforms.AllPlatforms)
+            {
+                if(JumpHeigh <= 0)
+                {
+                    Player.GoDown();
+                    if (Player.IsOnPlatform(platform))
+                    {
+                        Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
+                        Player.IsFalling = false; // Ferma il movimento verticale
+                        break;
+                    }
+                }
+                if (Player.IsOnPlatform(platform))
+                {
+                    Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
+                    Player.IsJumping = false; // Ferma il movimento verticale
                     break;
                 }
             }

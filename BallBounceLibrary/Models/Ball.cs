@@ -5,12 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 namespace BallBounceLibrary.Models
 {
-    public enum BoostMaxHeigh
-    {
-        JumpBoost = -280,
-        Normal= -140,
-        Penalty = +10
-    }
     public enum Effect
     {
         Normal,
@@ -18,11 +12,17 @@ namespace BallBounceLibrary.Models
     }
     public class Ball
     {
+        // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
+        public static readonly double JumpBoost = 0.2;
+        public static readonly double JumpPenalty = 0.005;
+        public static readonly double JumpNormal = 0.1;
+        // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
+        //VOLEVO FARLI COSTANTI MA NON SI PUÓ FARE WTF
         public Ball(Coordinates positionOfBall, String Name)
         {
             PositionOfBall = positionOfBall;
         }
-        public const int BOOST_UNITY = 12;
+        public const double BOOST_UNITY = 0.05;
         public Coordinates PositionOfBall { get; private set; }
         public Effect? CurrentEffect { get; set; }
         public void Move(int direction)
@@ -31,29 +31,31 @@ namespace BallBounceLibrary.Models
             //-1 sinistra 1 destra
             if (direction == 1)
             {
-                PositionOfBall.X += 5;
+                PositionOfBall.X += 0.05;
             }
             else//-1 va a sinistra
             {
-                PositionOfBall.Y -= 5;
+                PositionOfBall.X -= 0.05;
             }
         }
-        public void Jump(double Gravity)//nello xaml.cs va controlato il boost
+        public bool IsFalling { get; set; }
+        public bool IsJumping { get; set; }
+        public void Jump(double Gravity)//nello xaml.cs va controllato il boost
         {
             PositionOfBall.Y -= BOOST_UNITY;
-            //@TODO nel metodo del GamePAge.xaml.cs dove fai il salto aggiungi un for che richiama jump finoa a quando non satura la gravitá che aumenta di 0.5 ogni volta, partendo da 0.5
+            IsJumping = true;
+            IsFalling = false;
+            //@TODO nel metodo del GamePage.xaml.cs dove fai il salto aggiungi un for che richiama jump fino a quando non satura la gravitá che aumenta di 0.5 ogni volta, partendo da 0.5
         }
-        public void GoDown(float pixels) 
+        public void GoDown()
         {
-            PositionOfBall.Y += pixels;
-            if (PositionOfBall.Y > 2000) // Supponiamo che 2000 sia l'altezza massima
-            {
-                PositionOfBall.Y = 2000; // Limita la Y alla massima altezza
-            }
+            PositionOfBall.Y -= BOOST_UNITY;
+            IsJumping = false;
+            IsFalling = true;
         }
         public bool IsOnPlatform(Platforms platform )
         {
-            if ((PositionOfBall.X <= platform.CoordinatesOfPlatforms.X+20.0 )&&(PositionOfBall.X>= platform.CoordinatesOfPlatforms.X + 20.0) && (PositionOfBall.Y <= platform.CoordinatesOfPlatforms.Y + 20.0) && (PositionOfBall.Y>= platform.CoordinatesOfPlatforms.Y + 20.0))
+           if ((PositionOfBall.X <= platform.CoordinatesOfPlatforms.X+0.080 )&&(PositionOfBall.X>= platform.CoordinatesOfPlatforms.X + 0.080) && (PositionOfBall.Y <= platform.CoordinatesOfPlatforms.Y + 0.080) && (PositionOfBall.Y>= platform.CoordinatesOfPlatforms.Y + 0.080))
             {
                 return true;
             }
@@ -61,7 +63,7 @@ namespace BallBounceLibrary.Models
         }
         public bool IsOnPowerUp(Coordinates powerup)
         {
-            if ((PositionOfBall.X <= powerup.X + 20.0) && (PositionOfBall.X >= powerup.X + 20.0) && (PositionOfBall.Y <= powerup.Y + 20.0) && (PositionOfBall.Y >= powerup.Y + 20.0))
+            if ((PositionOfBall.X <= powerup.X + 0.08) && (PositionOfBall.X >= powerup.X + 0.080) && (PositionOfBall.Y <= powerup.Y + 0.08) && (PositionOfBall.Y >= powerup.Y + 0.08))
             {
                 return true;
             }
