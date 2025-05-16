@@ -19,40 +19,57 @@ namespace BallBounceLibrary.Models
 
         public List<Platforms> Generate()
         {
-            List<Platforms> platforms = new();
-            double[] yLevels = { 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1 };
+            Random rand = new Random();
+            List<Platforms> platforms = new List<Platforms>();
 
-            foreach (double y in yLevels)
+            double startY = 0.8;
+            double stepY = 0.1;
+            int numLevels = 8;
+
+            for (int i = 0; i < numLevels; i++)
             {
-                int platformCount = _random.Next(1, 3); // 1 o 2 piattaforme
-                List<Platforms> platformsAtLevel = new();
+                double y = startY - (i * stepY);
+                List<Platforms> levelPlatforms = new List<Platforms>();
 
-                // Prima piattaforma è sempre Normal
-                platformsAtLevel.Add(new Platforms(
-                    new Coordinates(RandomX(), y),
-                    PlatformType.Normal));
-
-                // Se ne vogliamo una seconda, può essere di tipo casuale
-                if (platformCount == 2)
+                if (i % 2 == 0)
                 {
-                    PlatformType randomType = (PlatformType)_random.Next(0, Enum.GetNames(typeof(PlatformType)).Length);
+                    // Livello con UNA piattaforma al centro (X tra 0.45 e 0.55)
+                    double x = rand.NextDouble() * 0.1 + 0.45;
+                    PlatformType type = PlatformType.Normal; // sempre normal
+                    levelPlatforms.Add(new Platforms(new Coordinates(x, y), type));
+                }
+                else
+                {
+                    // Livello con DUE piattaforme agli estremi (X = 0.1 e 0.9)
+                    double[] xPositions = { 0.001, 0.999 };
+                    bool hasNormal = false;
 
-                    // Se per caso è di nuovo Normal, va benissimo
-                    platformsAtLevel.Add(new Platforms(
-                        new Coordinates(RandomX(), y),
-                        randomType));
+                    for (int j = 0; j < 2; j++)
+                    {
+                        PlatformType type = (PlatformType)rand.Next(0, 3);
+                        if (!hasNormal && j == 1) type = PlatformType.Normal;
+                        if (type == PlatformType.Normal) hasNormal = true;
+
+                        levelPlatforms.Add(new Platforms(new Coordinates(xPositions[j], y), type));
+                    }
                 }
 
-                platforms.AddRange(platformsAtLevel);
+                platforms.AddRange(levelPlatforms);
             }
 
             return platforms;
         }
 
+
+
+
+
+
         private double RandomX()
         {
-            // X va da 0.0 a 1.0 (valore relativo in AbsoluteLayout)
-            return _random.NextDouble(); // 0.0 <= x < 1.0
+            // Genera X tra 0.1 e 0.9 per evitare piattaforme troppo ai margini
+            return 0.1 + _random.NextDouble() * 0.8;
         }
+
     }
 }

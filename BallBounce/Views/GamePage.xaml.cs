@@ -25,16 +25,17 @@ public partial class GamePage : ContentPage
             CurrentGame.Move(-1);
             CurrentGame.Jump(gravity);
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(100); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(50); // Aggiunge un delay di 0.05 secondi
             
         }while (CurrentGame.Player.IsJumping);//
-        do
+        CurrentGame.Player.IsFalling = true;
+        while (CurrentGame.Player.IsFalling)
         {
             CurrentGame.GoDown();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(100); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(200); // Aggiunge un delay di 0.05 secondi
             timescicled++;
-        } while (CurrentGame.Player.IsFalling&&timescicled!=20);
+        } 
     }
     public async void jump_right(object sender, EventArgs e)
     {
@@ -48,17 +49,38 @@ public partial class GamePage : ContentPage
             CurrentGame.Jump(gravity += 0.5);
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
 
-            await Task.Delay(100); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(50); // Aggiunge un delay di 0.05 secondi
         } while (CurrentGame.Player.IsJumping);
+        CurrentGame.Player.IsFalling = true;
+        while (CurrentGame.Player.IsFalling) 
+        {
+            CurrentGame.GoDown();
+            AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
+            await Task.Delay(200); // Aggiunge un delay di 0.05 secondi
+            timescicled++;  
+        } 
+    }
+    public async void jump_straight(object sender, EventArgs e)
+    {
+        //ogni volta che clicco devo resettare JumpHeigh.
+        CurrentGame.JumpHeigh = Ball.JumpNormal;
+        double gravity = 0;
+        int timescicled = 0;
         do
         {
+            CurrentGame.Jump(gravity += 0.5);
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(100); // Aggiunge un delay di 0.05 secondi
-            timescicled++;  
-        } while (CurrentGame.Player.IsFalling && timescicled != 20);
+            await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
+        } while (CurrentGame.Player.IsJumping);
+        CurrentGame.Player.IsFalling = true;
+        while (CurrentGame.Player.IsFalling)
+        {
+            CurrentGame.GoDown();
+            AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
+            await Task.Delay(200); // Aggiunge un delay di 0.05 secondi
+            timescicled++;
+        }
     }
-
-
     private void GeneratePlatformsOnLayout()
     {
         PlatformGenerator generator = new();

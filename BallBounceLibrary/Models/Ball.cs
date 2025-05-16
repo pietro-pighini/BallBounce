@@ -13,9 +13,9 @@ namespace BallBounceLibrary.Models
     public class Ball
     {
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
-        public static readonly double JumpBoost = 0.4;
-        public static readonly double JumpPenalty = 0.15;
-        public static readonly double JumpNormal = 0.3;
+        public static readonly double JumpBoost = 0.25;
+        public static readonly double JumpPenalty = 0.1;
+        public static readonly double JumpNormal = 0.16;
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
         //VOLEVO FARLI COSTANTI MA NON SI PUÓ FARE WTF
         public Ball(Coordinates positionOfBall, String Name)
@@ -49,7 +49,6 @@ namespace BallBounceLibrary.Models
         }
         public void GoDown()
         {
-            IsFalling = true; // Inizia a cadere
             PositionOfBall.Y += BOOST_UNITY;
         }
         public bool IsOnPlatform(Platforms platform)
@@ -57,7 +56,7 @@ namespace BallBounceLibrary.Models
             double dx = Math.Abs(PositionOfBall.X - platform.CoordinatesOfPlatforms.X);
             double dy = Math.Abs(PositionOfBall.Y - platform.CoordinatesOfPlatforms.Y);
 
-            return dx <= 0.05 && dy <= 0.08;
+            return dx <= 0.2 && dy <= 0.0999;
         }
 
         public bool IsOnPowerUp(Coordinates powerup)
