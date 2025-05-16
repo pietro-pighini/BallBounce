@@ -9,44 +9,50 @@ namespace BallBounceLibrary.Models
 
     public class PlatformGenerator//si occupa di generare i tipi di piattaforma e le loro coordinate
     {
-        private const int WorldHeight = 2000; // Altezza logica totale del mondo
-        private const int ScreenWidth = 360;  // Larghezza logica dello schermo
-        private const int MinYDistance = 40;  // Distanza minima tra una piattaforma e l'altra
-        private const int MaxYDistance = 100; // Distanza massima
-        private const int PlatformWidth = 80; // Larghezza di ogni piattaforma
         public PlatformGenerator()
         {
             AllPlatforms = Generate();
         }
 
         public List<Platforms> AllPlatforms { get; private set; } = new List<Platforms>();
+        private readonly Random _random = new();
+
         public List<Platforms> Generate()
         {
-            List<Platforms> platforms = new List<Platforms>();
-            int currentY = 0;
-            Random random = new Random();
+            List<Platforms> platforms = new();
+            double[] yLevels = { 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1 };
 
-            while (currentY < WorldHeight)
+            foreach (double y in yLevels)
             {
-                int yOffset = random.Next(MinYDistance, MaxYDistance);
-                currentY += yOffset;
+                int platformCount = _random.Next(1, 3); // 1 o 2 piattaforme
+                List<Platforms> platformsAtLevel = new();
 
-                int x = random.Next(20, ScreenWidth - PlatformWidth - 20);
+                // Prima piattaforma è sempre Normal
+                platformsAtLevel.Add(new Platforms(
+                    new Coordinates(RandomX(), y),
+                    PlatformType.Normal));
 
-                PlatformType type;
+                // Se ne vogliamo una seconda, può essere di tipo casuale
+                if (platformCount == 2)
+                {
+                    PlatformType randomType = (PlatformType)_random.Next(0, Enum.GetNames(typeof(PlatformType)).Length);
 
-                int chance = random.Next(0, 100);
-                if (chance < 10) // 10% trappola
-                    type = PlatformType.Trap;
-                else if (chance < 20) // 10% trampolino
-                    type = PlatformType.Trampoline;
-                else
-                    type = PlatformType.Normal;
+                    // Se per caso è di nuovo Normal, va benissimo
+                    platformsAtLevel.Add(new Platforms(
+                        new Coordinates(RandomX(), y),
+                        randomType));
+                }
 
-                platforms.Add(new Platforms(new Coordinates(x, currentY), type));
+                platforms.AddRange(platformsAtLevel);
             }
-            return platforms;
 
+            return platforms;
+        }
+
+        private double RandomX()
+        {
+            // X va da 0.0 a 1.0 (valore relativo in AbsoluteLayout)
+            return _random.NextDouble(); // 0.0 <= x < 1.0
         }
     }
 }

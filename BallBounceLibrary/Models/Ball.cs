@@ -13,9 +13,9 @@ namespace BallBounceLibrary.Models
     public class Ball
     {
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
-        public static readonly double JumpBoost = 0.2;
-        public static readonly double JumpPenalty = 0.005;
-        public static readonly double JumpNormal = 0.1;
+        public static readonly double JumpBoost = 0.4;
+        public static readonly double JumpPenalty = 0.15;
+        public static readonly double JumpNormal = 0.3;
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
         //VOLEVO FARLI COSTANTI MA NON SI PUÓ FARE WTF
         public Ball(Coordinates positionOfBall, String Name)
@@ -49,20 +49,20 @@ namespace BallBounceLibrary.Models
         }
         public void GoDown()
         {
-            PositionOfBall.Y -= BOOST_UNITY;
-            IsJumping = false;
-            IsFalling = true;
+            IsFalling = true; // Inizia a cadere
+            PositionOfBall.Y += BOOST_UNITY;
         }
-        public bool IsOnPlatform(Platforms platform )
+        public bool IsOnPlatform(Platforms platform)
         {
-           if ((PositionOfBall.X <= platform.CoordinatesOfPlatforms.X+0.080 )&&(PositionOfBall.X>= platform.CoordinatesOfPlatforms.X + 0.080) && (PositionOfBall.Y <= platform.CoordinatesOfPlatforms.Y + 0.080) && (PositionOfBall.Y>= platform.CoordinatesOfPlatforms.Y + 0.080))
-            {
-                return true;
-            }
-            return false;
+            double dx = Math.Abs(PositionOfBall.X - platform.CoordinatesOfPlatforms.X);
+            double dy = Math.Abs(PositionOfBall.Y - platform.CoordinatesOfPlatforms.Y);
+
+            return dx <= 0.05 && dy <= 0.08;
         }
+
         public bool IsOnPowerUp(Coordinates powerup)
         {
+            //da aggiustare la condizione
             if ((PositionOfBall.X <= powerup.X + 0.08) && (PositionOfBall.X >= powerup.X + 0.080) && (PositionOfBall.Y <= powerup.Y + 0.08) && (PositionOfBall.Y >= powerup.Y + 0.08))
             {
                 return true;

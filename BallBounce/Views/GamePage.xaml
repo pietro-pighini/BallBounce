@@ -4,7 +4,7 @@
              Title="{Binding GameBall}"
              BackgroundColor="Black">
 
-    <AbsoluteLayout>
+    <AbsoluteLayout x:Name="game_layout">
         <!-- Piattaforme -->
         <!-- Prima piattaforma -->
         <Image Source="platform.png" 

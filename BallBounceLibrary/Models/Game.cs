@@ -35,33 +35,18 @@ namespace BallBounceLibrary.Models
                 }
             }
         }
-        public double JumpHeigh { get; set; }
+        public double JumpHeigh { get; set; } = Ball.JumpNormal;
         public void Jump(double Gravity)//sarà compito dello xaml.cs controllare la frequenza di controllo della verifica delle coincidenze
         //delle coordinate
         {
             Player.Jump(Gravity);
-            
-            JumpHeigh -= Ball.BOOST_UNITY;
-            // Controlla se il giocatore ha colpito una piattaforma
-            foreach (var platform in Platforms.AllPlatforms)
+            if (JumpHeigh <= 0)
             {
-                if(JumpHeigh <= 0)
-                {
-                    Player.GoDown();
-                    if (Player.IsOnPlatform(platform))
-                    {
-                        Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
-                        Player.IsFalling = false; // Ferma il movimento verticale
-                        break;
-                    }
-                }
-                if (Player.IsOnPlatform(platform))
-                {
-                    Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
-                    Player.IsJumping = false; // Ferma il movimento verticale
-                    break;
-                }
+                Player.IsJumping = false; // Ferma il movimento verticale
             }
+            JumpHeigh -= Ball.BOOST_UNITY;
+
+            // non controllo se il giocatore ha colpito una piattaforma pk in salita sono tutti non collidable
             // Controlla se il giocatore ha colpito un power-up
             foreach (var powerUp in PowerUps.AllPowerUps)
             {
@@ -73,7 +58,24 @@ namespace BallBounceLibrary.Models
                     break;
                 }
             }
+
         }
-        
+        public void GoDown()//sarà compito dello xaml.cs controllare la frequenza di controllo della verifica delle coincidenze
+        //delle coordinate
+        {
+            Player.GoDown();
+
+            // Controlla se il giocatore ha colpito una piattaforma
+            foreach (var platform in Platforms.AllPlatforms)
+            {
+                if (Player.IsOnPlatform(platform))
+                {
+                    Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y+0.099; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
+                    Player.IsFalling = false; // Ferma il movimento verticale
+                    break;
+                }
+            }
+        }
+
     }
 }
