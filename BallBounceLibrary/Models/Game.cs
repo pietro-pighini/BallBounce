@@ -64,7 +64,6 @@ namespace BallBounceLibrary.Models
         //delle coordinate
         {
             Player.GoDown();
-
             // Controlla se il giocatore ha colpito una piattaforma
             foreach (var platform in Platforms.AllPlatforms)
             {
@@ -76,6 +75,7 @@ namespace BallBounceLibrary.Models
                     break;
                 }
             }
+            
         }
 
     }

@@ -25,7 +25,7 @@ public partial class GamePage : ContentPage
             CurrentGame.Move(-1);
             CurrentGame.Jump(gravity);
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(50); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
             
         }while (CurrentGame.Player.IsJumping);//
         CurrentGame.Player.IsFalling = true;
@@ -33,7 +33,7 @@ public partial class GamePage : ContentPage
         {
             CurrentGame.GoDown();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(200); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(10); // Aggiunge un delay di 0.05 secondi
             timescicled++;
         } 
     }
@@ -49,21 +49,21 @@ public partial class GamePage : ContentPage
             CurrentGame.Jump(gravity += 0.5);
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
 
-            await Task.Delay(50); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
         } while (CurrentGame.Player.IsJumping);
         CurrentGame.Player.IsFalling = true;
         while (CurrentGame.Player.IsFalling) 
         {
             CurrentGame.GoDown();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(200); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(10); // Aggiunge un delay di 0.05 secondi
             timescicled++;  
         } 
     }
     public async void jump_straight(object sender, EventArgs e)
     {
         //ogni volta che clicco devo resettare JumpHeigh.
-        CurrentGame.JumpHeigh = Ball.JumpNormal;
+        CurrentGame.JumpHeigh = Ball.JumpNormal-0.04;
         double gravity = 0;
         int timescicled = 0;
         do
@@ -77,7 +77,7 @@ public partial class GamePage : ContentPage
         {
             CurrentGame.GoDown();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(200); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(10); // Aggiunge un delay di 0.05 secondi
             timescicled++;
         }
     }

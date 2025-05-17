@@ -31,15 +31,18 @@ namespace BallBounceLibrary.Models
             //-1 sinistra 1 destra
             if (direction == 1)
             {
-                PositionOfBall.X += 0.05;
+                PositionOfBall.X += 0.1;
             }
             else//-1 va a sinistra
             {
-                PositionOfBall.X -= 0.05;
+                PositionOfBall.X -= 0.1;
             }
         }
         public bool IsFalling { get; set; }
         public bool IsJumping { get; set; }
+        public bool IsOnTrampoline { get; set; }
+        public bool IsOnTrap { get; set; }
+        public bool IsOnNormal { get; set; }
         public void Jump(double Gravity)//nello xaml.cs va controllato il boost
         {
             PositionOfBall.Y -= BOOST_UNITY;
@@ -55,14 +58,31 @@ namespace BallBounceLibrary.Models
         {
             double dx = Math.Abs(PositionOfBall.X - platform.CoordinatesOfPlatforms.X);
             double dy = Math.Abs(PositionOfBall.Y - platform.CoordinatesOfPlatforms.Y);
-
-            return dx <= 0.2 && dy <= 0.0999;
+            if(platform.TypeOfPlatform == PlatformType.Normal)
+            {
+                IsOnNormal = true;
+                IsOnTrap = false;
+                IsOnTrampoline = false;
+            }
+            else if (platform.TypeOfPlatform == PlatformType.Trampoline)
+            {
+                IsOnTrap = false;
+                IsOnNormal = false;
+                IsOnTrampoline = true;
+            }
+            else if (platform.TypeOfPlatform == PlatformType.Trap)
+            {
+                IsOnTrap = true;
+                IsOnNormal = false;
+                IsOnTrampoline = false;
+            }    
+            return dx <= 0.3 && dy <= 0.1;
         }
 
         public bool IsOnPowerUp(Coordinates powerup)
         {
             //da aggiustare la condizione
-            if ((PositionOfBall.X <= powerup.X + 0.08) && (PositionOfBall.X >= powerup.X + 0.080) && (PositionOfBall.Y <= powerup.Y + 0.08) && (PositionOfBall.Y >= powerup.Y + 0.08))
+            if ((PositionOfBall.X <= powerup.X + 0.08) && (PositionOfBall.X >= powerup.X + 0.08) && (PositionOfBall.Y <= powerup.Y + 0.08) && (PositionOfBall.Y >= powerup.Y + 0.08))
             {
                 return true;
             }
