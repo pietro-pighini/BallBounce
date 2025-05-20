@@ -13,8 +13,8 @@ namespace BallBounceLibrary.Models
     public class Ball
     {
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
-        public static readonly double JumpBoost = 0.25;
-        public static readonly double JumpPenalty = 0.1;
+        public static readonly double JumpBoost = 0.3;
+        public static readonly double JumpPenalty = 0.06;
         public static readonly double JumpNormal = 0.16;
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
         //VOLEVO FARLI COSTANTI MA NON SI PUÓ FARE WTF
@@ -44,7 +44,7 @@ namespace BallBounceLibrary.Models
         public bool IsOnTrap { get; set; }
         public bool IsOnNormal { get; set; }
         public bool IsOnLastPlatform { get; set; }
-        public void Jump(double Gravity)//nello xaml.cs va controllato il boost
+        public void Jump()//nello xaml.cs va controllato il boost
         {
             PositionOfBall.Y -= BOOST_UNITY;
             IsJumping = true;
@@ -59,25 +59,7 @@ namespace BallBounceLibrary.Models
         {
             bool result;
             double dx = Math.Abs(PositionOfBall.X - platform.CoordinatesOfPlatforms.X);
-            double dy = Math.Abs(PositionOfBall.Y - platform.CoordinatesOfPlatforms.Y);
-            if(platform.TypeOfPlatform == PlatformType.Normal)
-            {
-                IsOnNormal = true;
-                IsOnTrap = false;
-                IsOnTrampoline = false;
-            }
-            else if (platform.TypeOfPlatform == PlatformType.Trampoline)
-            {
-                IsOnTrap = false;
-                IsOnNormal = false;
-                IsOnTrampoline = true;
-            }
-            else if (platform.TypeOfPlatform == PlatformType.Trap)
-            {
-                IsOnTrap = true;
-                IsOnNormal = false;
-                IsOnTrampoline = false;
-            }    
+            double dy = Math.Abs(PositionOfBall.Y - platform.CoordinatesOfPlatforms.Y);  
             if(dx <= 0.3 && dy <= 0.1)
             {
                 result = true;

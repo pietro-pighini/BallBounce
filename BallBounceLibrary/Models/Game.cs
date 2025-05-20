@@ -36,10 +36,10 @@ namespace BallBounceLibrary.Models
             }
         }
         public double JumpHeigh { get; set; } = Ball.JumpNormal;
-        public void Jump(double Gravity)//sarà compito dello xaml.cs controllare la frequenza di controllo della verifica delle coincidenze
+        public void Jump()//sarà compito dello xaml.cs controllare la frequenza di controllo della verifica delle coincidenze
         //delle coordinate
         {
-            Player.Jump(Gravity);
+            Player.Jump();
             if (JumpHeigh <= 0)
             {
                 Player.IsJumping = false; // Ferma il movimento verticale
@@ -81,10 +81,34 @@ namespace BallBounceLibrary.Models
                     {
                         Player.IsOnLastPlatform = false;
                     }
+                    checkTypeOfPlatform(platform);
                     break;
                 }
             }
-            
+        }
+        private void checkTypeOfPlatform(Platforms platform)
+        {
+            if (platform.TypeOfPlatform == PlatformType.Normal)
+            {
+                Player.IsOnNormal = true;
+                Player.IsOnTrap = false;
+                Player.IsOnTrampoline = false;
+                JumpHeigh = Ball.JumpNormal;
+            }
+            else if (platform.TypeOfPlatform == PlatformType.Trampoline)
+            {
+                Player.IsOnTrap = false;
+                Player.IsOnNormal = false;
+                Player.IsOnTrampoline = true;
+                JumpHeigh = Ball.JumpBoost; // Aumenta l'altezza del salto
+            }
+            else if (platform.TypeOfPlatform == PlatformType.Trap)
+            {
+                Player.IsOnTrap = true;
+                Player.IsOnNormal = false;
+                Player.IsOnTrampoline = false;
+                JumpHeigh = Ball.JumpPenalty; // Diminuisci l'altezza del salto
+            }
         }
 
     }

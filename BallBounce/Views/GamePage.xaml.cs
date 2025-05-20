@@ -25,7 +25,7 @@ public partial class GamePage : ContentPage
         do
         {
             CurrentGame.Move(-1);
-            CurrentGame.Jump(gravity);
+            CurrentGame.Jump();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
             await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
             
@@ -38,14 +38,7 @@ public partial class GamePage : ContentPage
             await Task.Delay(10); // Aggiunge un delay di 0.05 secondi
             timescicled++;
         }
-        if (IsOutOfBounds())
-        {
-            LostGame();
-        }
-        else
-        {
-            WonGame();
-        }
+        CheckLostOrWon();
     }
     public async void jump_right(object sender, EventArgs e)
     {
@@ -56,7 +49,7 @@ public partial class GamePage : ContentPage
         do
         {
             CurrentGame.Move(+1);
-            CurrentGame.Jump(gravity += 0.5);
+            CurrentGame.Jump();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
 
             await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
@@ -69,24 +62,19 @@ public partial class GamePage : ContentPage
             await Task.Delay(10); // Aggiunge un delay di 0.05 secondi
             timescicled++;  
         }
-        if (IsOutOfBounds())
-        {
-            LostGame();
-        }
-        else
-        {
-            WonGame();
-        }
+        CheckLostOrWon();
+        ModifYJumpHeighBasedOnPlatformType();
     }
     public async void jump_straight(object sender, EventArgs e)
     {
         //ogni volta che clicco devo resettare JumpHeigh.
-        CurrentGame.JumpHeigh = Ball.JumpNormal-0.04;
+
+        CurrentGame.JumpHeigh -= 0.04;
         double gravity = 0;
         int timescicled = 0;
         do
         {
-            CurrentGame.Jump(gravity += 0.5);
+            CurrentGame.Jump();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
             await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
         } while (CurrentGame.Player.IsJumping);
@@ -98,20 +86,14 @@ public partial class GamePage : ContentPage
             await Task.Delay(10); // Aggiunge un delay di 0.05 secondi
             timescicled++;
         }
-        if (IsOutOfBounds())
-        {
-            LostGame();
-        }
-        else
-        {
-            WonGame();
-        }
-        
+        CheckLostOrWon();
+        ModifYJumpHeighBasedOnPlatformType();
+
     }
     private void GeneratePlatformsOnLayout()
     {
         PlatformGenerator generator = new();
-        List<Platforms> platforms = generator.Generate();
+        List<Platforms> platforms = CurrentGame.Platforms.AllPlatforms;
 
         foreach (var platform in platforms)
         {
@@ -178,6 +160,32 @@ public partial class GamePage : ContentPage
         {
             // Chiude la finestra corrente e riapre la MainPage  
             await Navigation.PopToRootAsync();
+        }
+    }
+    private void CheckLostOrWon()
+    {
+        if (IsOutOfBounds())
+        {
+            LostGame();
+        }
+        else
+        {
+            WonGame();
+        }
+    }
+    private void ModifYJumpHeighBasedOnPlatformType()
+    {
+        if(CurrentGame.Player.IsOnNormal)
+        {
+            CurrentGame.JumpHeigh = Ball.JumpNormal;
+        }
+        else if (CurrentGame.Player.IsOnTrap)
+        {
+            CurrentGame.JumpHeigh = Ball.JumpPenalty;
+        }
+        else if (CurrentGame.Player.IsOnTrampoline)
+        {
+            CurrentGame.JumpHeigh = Ball.JumpBoost;
         }
     }
     private string GetPlatformImageSource(PlatformType type)
