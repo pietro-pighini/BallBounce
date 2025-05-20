@@ -2,11 +2,49 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BallBounceLibrary.Views.RulePage"
-             Title="RulePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="RulePage"
+             BackgroundColor="Black">
+    <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
+
+        <!-- Titolo -->
+        <Label Text="Game Rules"
+               TextColor="White"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <!-- Box per le regole -->
+        <Frame
+            BackgroundColor="Black"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            Padding="20"
+            CornerRadius="10"
+            Margin="0,20">
+
+            <ScrollView>
+                <Editor x:Name="RulesEditor"
+                    Text="Rules will be displayed here..."
+                    IsReadOnly="True"
+                    BackgroundColor="Transparent"
+                    TextColor="White"
+                    FontSize="16"
+                    HeightRequest="400"
+                    WidthRequest="350"/>
+            </ScrollView>
+        </Frame>
+
+        <!-- Bottone Back -->
+        <Button Text="Back to Home"
+                BackgroundColor="Black"
+                TextColor="White"
+                FontSize="16"
+                HeightRequest="45"
+                CornerRadius="10"
+                Margin="0,20"
+                HorizontalOptions="Center"
+                WidthRequest="200"
+                Clicked="OnBackClicked"/>
+
     </VerticalStackLayout>
 </ContentPage>
