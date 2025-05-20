@@ -71,7 +71,7 @@ namespace BallBounceLibrary.Models
                 if (Player.IsOnPlatform(platform))
                 {
                     Player.PositionOfBall.X= platform.CoordinatesOfPlatforms.X;
-                    Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y-0.09; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
+                    Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y-0.07;// Posiziona il giocatore sopra la piattaforma
                     Player.IsFalling = false; // Ferma il movimento verticale
                     if (Platforms.AllPlatforms.Last() == platform || Platforms.AllPlatforms[penultima] == platform)//se é nell'ultima o nella penultima piattaforma
                     {
