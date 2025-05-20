@@ -48,7 +48,7 @@
                 Clicked="OnRulesClicked"/>
 
         <!-- Crediti -->
-        <Label Text="Made by Endri, Mario, Pietro"
+        <Label Text="Made by Mario, Endri, Pietro"
                FontSize="12"
                TextColor="#888888"
                HorizontalOptions="Center"

@@ -30,7 +30,6 @@ namespace BallBounceLibrary.Models
             {
                 double y = startY - (i * stepY);
                 List<Platforms> levelPlatforms = new List<Platforms>();
-
                 if (i % 2 == 0)
                 {
                     // Livello con UNA piattaforma al centro (X tra 0.45 e 0.55)

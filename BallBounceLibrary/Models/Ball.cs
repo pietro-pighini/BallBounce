@@ -43,6 +43,7 @@ namespace BallBounceLibrary.Models
         public bool IsOnTrampoline { get; set; }
         public bool IsOnTrap { get; set; }
         public bool IsOnNormal { get; set; }
+        public bool IsOnLastPlatform { get; set; }
         public void Jump(double Gravity)//nello xaml.cs va controllato il boost
         {
             PositionOfBall.Y -= BOOST_UNITY;
@@ -56,6 +57,7 @@ namespace BallBounceLibrary.Models
         }
         public bool IsOnPlatform(Platforms platform)
         {
+            bool result;
             double dx = Math.Abs(PositionOfBall.X - platform.CoordinatesOfPlatforms.X);
             double dy = Math.Abs(PositionOfBall.Y - platform.CoordinatesOfPlatforms.Y);
             if(platform.TypeOfPlatform == PlatformType.Normal)
@@ -76,7 +78,15 @@ namespace BallBounceLibrary.Models
                 IsOnNormal = false;
                 IsOnTrampoline = false;
             }    
-            return dx <= 0.3 && dy <= 0.1;
+            if(dx <= 0.3 && dy <= 0.1)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
         }
 
         public bool IsOnPowerUp(Coordinates powerup)

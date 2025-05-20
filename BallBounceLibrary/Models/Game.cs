@@ -64,6 +64,7 @@ namespace BallBounceLibrary.Models
         //delle coordinate
         {
             Player.GoDown();
+            int penultima = Platforms.AllPlatforms.Count() - 2;//la metto qui per non calcolarla mille volte inutilmente
             // Controlla se il giocatore ha colpito una piattaforma
             foreach (var platform in Platforms.AllPlatforms)
             {
@@ -72,6 +73,14 @@ namespace BallBounceLibrary.Models
                     Player.PositionOfBall.X= platform.CoordinatesOfPlatforms.X;
                     Player.PositionOfBall.Y = platform.CoordinatesOfPlatforms.Y-0.09; //- Player.Radius; // Posiziona il giocatore sopra la piattaforma
                     Player.IsFalling = false; // Ferma il movimento verticale
+                    if (Platforms.AllPlatforms.Last() == platform || Platforms.AllPlatforms[penultima] == platform)//se é nell'ultima o nella penultima piattaforma
+                    {
+                        Player.IsOnLastPlatform = true;
+                    }
+                    else
+                    {
+                        Player.IsOnLastPlatform = false;
+                    }
                     break;
                 }
             }
