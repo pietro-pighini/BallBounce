@@ -13,7 +13,7 @@ namespace BallBounceLibrary.Models
     public class Ball
     {
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
-        public static readonly double JumpBoost = 0.3;
+        public static readonly double JumpBoost = 0.37;
         public static readonly double JumpPenalty = 0.06;
         public static readonly double JumpNormal = 0.16;
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
