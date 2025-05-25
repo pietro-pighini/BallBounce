@@ -27,7 +27,7 @@ public partial class GamePage : ContentPage
             CurrentGame.Move(-1);
             CurrentGame.Jump();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(40); // Aggiunge un delay di 0.05 secondi
             
         }while (CurrentGame.Player.IsJumping);//
         CurrentGame.Player.IsFalling = true;
@@ -52,7 +52,7 @@ public partial class GamePage : ContentPage
             CurrentGame.Jump();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
 
-            await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(40); // Aggiunge un delay di 0.05 secondi
         } while (CurrentGame.Player.IsJumping);
         CurrentGame.Player.IsFalling = true;
         while (CurrentGame.Player.IsFalling&&timescicled<=10) 
@@ -76,7 +76,7 @@ public partial class GamePage : ContentPage
         {
             CurrentGame.Jump();
             AbsoluteLayout.SetLayoutBounds(img_ball, new Rect(CurrentGame.Player.PositionOfBall.X, CurrentGame.Player.PositionOfBall.Y, 90.0, 90.0));
-            await Task.Delay(30); // Aggiunge un delay di 0.05 secondi
+            await Task.Delay(40); // Aggiunge un delay di 0.05 secondi
         } while (CurrentGame.Player.IsJumping);
         CurrentGame.Player.IsFalling = true;
         while (CurrentGame.Player.IsFalling && timescicled <= 10)

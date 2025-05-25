@@ -7,60 +7,57 @@ namespace BallBounceLibrary.Models
     {
         public PlatformGenerator()
         {
-            AllPlatforms = Generate();
+            //devo crearne 10 in totale, 4 volte singola e 3 volte doppia
+            for (int i = 0; i < _maxPlatforms; i++)
+            {
+                if (i % 2 == 0) // Genera piattaforme singole
+                {
+                    Generate(true,(_yLevel));
+                }
+                else // Genera piattaforme doppie
+                {
+                    Generate(false,(_yLevel));
+                }
+                _yLevel -= 0.2; // Abbassa il livello Y per la prossima piattaforma
+            }
         }
-
+        private readonly int _maxPlatforms = 5; // Numero massimo di piattaforme da generare
+        private double _yLevel = 0.855; // Livello Y iniziale per la generazione delle piattaforme
         public List<Platforms> AllPlatforms { get; private set; } = new List<Platforms>();
         private readonly Random _random = new();
 
-        public List<Platforms> Generate()
+        public void Generate(bool isOne,double yLevel)
         {
             Random rand = new Random();
             List<Platforms> platforms = new List<Platforms>();
 
             double startY = 0.85;// Inizia sopra la piattaforma iniziale (che sta a 0.999)
             int numLevels = 8;
-            double stepY = startY / (numLevels - 1); // Spaziatura uniforme
-
-            for (int i = 0; i < numLevels; i++)
+            List<Platforms> levelPlatforms = new List<Platforms>();
+            platforms.AddRange(levelPlatforms);
+            if (isOne)
             {
-                double y = startY - (i * stepY);
-                if (y <= 0.05) break; // evita di andare fuori schermo
-
-                List<Platforms> levelPlatforms = new List<Platforms>();
-
-                if (i % 2 == 0)
-                {
-                    // Piattaforma singola centrata
-                    double x = rand.NextDouble() * 0.1 + 0.45;
-                    PlatformType type = PlatformType.Normal;
-                    levelPlatforms.Add(new Platforms(new Coordinates(x, y), type));
-                }
-                else
-                {
-                    // Due piattaforme agli estremi
-                    double[] xPositions = { 0.001, 0.999 };
-                    bool hasNormal = false;
-
-                    for (int j = 0; j < 2; j++)
-                    {
-                        PlatformType type = (PlatformType)rand.Next(0, 3);
-                        if (!hasNormal && j == 1) type = PlatformType.Normal;
-                        if (type == PlatformType.Normal) hasNormal = true;
-
-                        levelPlatforms.Add(new Platforms(new Coordinates(xPositions[j], y), type));
-                    }
-                }
-
-                platforms.AddRange(levelPlatforms);
+                //devo generare una sola piattaforma, a livello y
+                //la x deve essere 0.5
+                Coordinates coordinates = new Coordinates(0.5, yLevel);
+                PlatformType type = (PlatformType)_random.Next(0, 3); // Genera un tipo di piattaforma casuale compresa la trappola
+                Platforms platform = new Platforms(coordinates, type);
+                AllPlatforms.Add(platform);
+            }
+            else
+            {
+                //due piattaforme
+                //la prima piattaforma deve essere a 0.1, la seconda a 0.9
+                Coordinates coordinates1 = new Coordinates(0.1, yLevel);
+                PlatformType type1 = (PlatformType)_random.Next(0, 3); // Genera un tipo di piattaforma casuale
+                Platforms platform1 = new Platforms(coordinates1, type1);
+                AllPlatforms.Add(platform1);
+                Coordinates coordinates2 = new Coordinates(0.9, yLevel);
+                PlatformType type2 = (PlatformType)_random.Next(0, 3); // Genera un tipo di piattaforma casuale
+                Platforms platform2 = new Platforms(coordinates2, type2);
+                AllPlatforms.Add(platform2);
             }
 
-            return platforms;
-        }
-
-        private double RandomX()
-        {
-            return 0.1 + _random.NextDouble() * 0.8;
         }
     }
 }

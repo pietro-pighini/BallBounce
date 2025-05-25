@@ -14,7 +14,7 @@ public partial class MainPage : ContentPage
         // Naviga semplicemente verso GamePage
         PlatformGenerator platformGenerator = new PlatformGenerator();
         Coordinates coords = new Coordinates(0.5, 0.9);
-        platformGenerator.AllPlatforms.Insert(0, new Platforms(new Coordinates(0.5, 0.999), PlatformType.Normal));//lo metto alla posizone 0
+        platformGenerator.AllPlatforms.Insert(0, new Platforms(new Coordinates(0.5, 0.999), PlatformType.Normal));//lo metto alla posizione 0
         Game game = new Game(new Ball(coords, "gigi"), platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
         await Navigation.PushAsync(new GamePage(game, this));
     }
