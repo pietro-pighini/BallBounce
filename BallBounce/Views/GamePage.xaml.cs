@@ -136,8 +136,6 @@ public partial class GamePage : ContentPage
         CurrentGame.JumpHeigh -= 0.04;
         double gravity = 0;
         int timescicled = 0;
-
-        
         do
         {
             CurrentGame.Jump();
@@ -218,18 +216,13 @@ public partial class GamePage : ContentPage
             }
             else
             {
-                // Chiude la finestra corrente e riapre la MainPage  
-                await Navigation.PopToRootAsync();
+            // Chiude la finestra corrente e riapre la MainPage  
+            CurrentGame.Player.PositionOfBall = new Coordinates(0.5, 0.9);//perché sennó la palla rimane fuori dallo schermo nella nuova partita
+            await Navigation.PopAsync();
+            await Navigation.PopToRootAsync();
             }
-    }
-    private bool IsOutOfBounds()
-    {
-        var bounds = AbsoluteLayout.GetLayoutBounds(img_ball);
-        if (bounds.X < 0.0 || bounds.Y > 1.0 || bounds.X > 1.0)
-        {
-            return true;
-        }
-        return false;
+        Main.UpdatePlayerStats(CurrentGame.Player);
+        Main.SavePlayersToFile("players.json");
     }
     private async void LostGame()
     {
@@ -244,12 +237,27 @@ public partial class GamePage : ContentPage
             Game game = new Game(new Ball(coords, "gigi"), platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
             await Navigation.PushAsync(new GamePage(game,this.Main));
             //ora devo chiudere questa pagina peró
+            
         }
         else
         {
             // Chiude la finestra corrente e riapre la MainPage  
+            CurrentGame.Player.PositionOfBall = new Coordinates(0.5, 0.9);//perché sennó la palla rimane fuori dallo schermo nella nuova partita
+            await Navigation.PopAsync();
             await Navigation.PopToRootAsync();
+
         }
+        Main.UpdatePlayerStats(CurrentGame.Player);
+        Main.SavePlayersToFile("players.json");
+    }
+    private bool IsOutOfBounds()
+    {
+        var bounds = AbsoluteLayout.GetLayoutBounds(img_ball);
+        if (bounds.X < 0.0 || bounds.Y > 1.0 || bounds.X > 1.0)
+        {
+            return true;
+        }
+        return false;
     }
     private void CheckLostOrWon()
     {

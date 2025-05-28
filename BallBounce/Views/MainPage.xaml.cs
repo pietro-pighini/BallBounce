@@ -1,5 +1,6 @@
 using BallBounceLibrary.Models;
 using BallBounceLibrary.Views;
+using System.Text.Json;
 namespace BallBounce.Views;
 
 public partial class MainPage : ContentPage
@@ -8,17 +9,21 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         _currentPlayer = new Ball(new Coordinates(0.5, 0.9), _username);
+        UpdatePlayerStats(_currentPlayer);
+        
+        _previousPlayers = LoadPlayersFromFile("players.json");
     }
-    private string _username { get;set; } = "user";
+    private string _username { get; set; } = "user";
     private List<Ball> _previousPlayers = new List<Ball>();
     private Ball _currentPlayer;
 
     private async void OnPlayClicked(object sender, EventArgs e)
     {
         // Naviga semplicemente verso GamePage
+
         PlatformGenerator platformGenerator = new PlatformGenerator();
-        
         platformGenerator.AllPlatforms.Insert(0, new Platforms(new Coordinates(0.5, 0.999), PlatformType.Normal));//lo metto alla posizione 0
+
         Game game = new Game(_currentPlayer, platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
         await Navigation.PushAsync(new GamePage(game, this));
     }
@@ -30,19 +35,22 @@ public partial class MainPage : ContentPage
     {
         Entry entry = sender as Entry;
         int index = IsAlreadyUsed(entry.Text);
-        if (index!=-1)
+        if (index != -1)
         {
             _currentPlayer = _previousPlayers[index];
         }
         else
         {
             _currentPlayer = new Ball(new Coordinates(0.5, 0.9), entry.Text);
+            _previousPlayers.Add(_currentPlayer);
         }
+        UpdatePlayerStats(_currentPlayer);
+        SavePlayersToFile("players.json");
 
     }
     private int IsAlreadyUsed(string name)
     {
-        for(int i=0;i<_previousPlayers.Count;i++)
+        for (int i = 0; i < _previousPlayers.Count; i++)
         {
             if (_previousPlayers[i].Username == name)
             {
@@ -59,5 +67,24 @@ public partial class MainPage : ContentPage
         Wins.Text = $"Partite vinte: {player.Wins}";
         Losses.Text = $"Partite perse: {player.Losses}";
     }
+    public void SavePlayersToFile(string fileName)
+    {
+        string json = JsonSerializer.Serialize(_previousPlayers);
+
+        string filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+        File.WriteAllText(filePath, json); // SINCRONO
+    }
+
+    public List<Ball> LoadPlayersFromFile(string fileName)
+    {
+        string filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+        if (!File.Exists(filePath))
+            return new List<Ball>(); // Evita errori se il file non esiste  
+
+        string json = File.ReadAllText(filePath); // SINCRONO  
+        return JsonSerializer.Deserialize<List<Ball>>(json) ?? new List<Ball>(); 
+    }
+
 
 }

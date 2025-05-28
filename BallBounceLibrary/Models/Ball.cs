@@ -27,7 +27,7 @@ namespace BallBounceLibrary.Models
             Username = name;
         }
         public const double BOOST_UNITY = 0.05;
-        public Coordinates PositionOfBall { get; private set; }
+        public Coordinates PositionOfBall { get; set; }
         public Effect? CurrentEffect { get; set; }
         public void Move(int direction)
         {
@@ -44,7 +44,7 @@ namespace BallBounceLibrary.Models
         }
         public int Wins { get; set; }
         public int Losses { get; set; }
-        public string Username { get; private set; }
+        public string Username { get; set; }
         public bool IsFalling { get; set; }
         public bool IsJumping { get; set; }
         public bool IsOnTrampoline { get; set; }
