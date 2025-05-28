@@ -8,7 +8,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         _currentPlayer = new Ball(new Coordinates(0.5, 0.9), _username);
-}
+    }
     private string _username { get;set; } = "user";
     private List<Ball> _previousPlayers = new List<Ball>();
     private Ball _currentPlayer;
@@ -50,6 +50,14 @@ public partial class MainPage : ContentPage
             }
         }
         return -1;
+    }
+
+    // In MainPage.xaml.cs
+    public void UpdatePlayerStats(Ball player)
+    {
+        Username.Text = $"Username: {player.Username}";
+        Wins.Text = $"Partite vinte: {player.Wins}";
+        Losses.Text = $"Partite perse: {player.Losses}";
     }
 
 }

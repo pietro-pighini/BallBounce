@@ -18,6 +18,7 @@ public partial class GamePage : ContentPage
     public GameStatus Status { get; private set; } = GameStatus.IN_PROGRESS;
     public GamePage(Game game, MainPage main)
 	{
+        Main?.UpdatePlayerStats(CurrentGame.Player);
         Main = main;
 		InitializeComponent();
         CurrentGame = game;

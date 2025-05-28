@@ -2,58 +2,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BallBounce.Views.MainPage"
              BackgroundColor="Black">
-
-    <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
-
-        <!-- Logo -->
-        <Image Source="logo.png" HeightRequest="300" HorizontalOptions="Center"/>
-
-        <!-- Inserimento username -->
-        <!--colore del background color di frame trasparente pk serve solo quello delle frame-->
-        <!--uso un frame perché ha il corner radius-->
+    <Grid>
         <Frame
-            BackgroundColor="White"
-            HeightRequest="45"
-            WidthRequest="350"
-            HorizontalOptions="CenterAndExpand"
-            Padding="0"
-            CornerRadius="10"
-            Margin="0,10">
-            <Entry Placeholder="Insert your username"
-               HorizontalTextAlignment="Center"
-               BackgroundColor="Transparent"
-               TextColor="Black"
-               x:Name="txt_username"
-               Completed="OnEntryCompleted"
-               FontSize="16"/>
+            BackgroundColor="Transparent"
+            HasShadow="False"
+            Padding="10"
+            CornerRadius="0"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Margin="10">
+            <VerticalStackLayout Spacing="5">
+                <HorizontalStackLayout>
+                    <Label Text="Username: " TextColor="White" FontSize="14"
+                           x:Name="Username"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Partite vinte: " TextColor="White" FontSize="14"
+                           x:Name="Wins"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Partite perse: " TextColor="White" FontSize="14"
+                           x:Name="Losses"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
         </Frame>
 
+        <!-- Contenuto principale -->
+        <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
+            <!-- Logo -->
+            <Image Source="logo.png" HeightRequest="300" HorizontalOptions="Center"/>
 
-        <!-- Bottone Play -->
-        <Button Text="Play"
+            <!-- Username input -->
+            <Frame
                 BackgroundColor="White"
-                TextColor="Black"
-                FontSize="16"
                 HeightRequest="45"
+                WidthRequest="350"
+                HorizontalOptions="CenterAndExpand"
+                Padding="0"
                 CornerRadius="10"
-                Margin="0"
-                Clicked="OnPlayClicked"/>
+                Margin="0,10">
+                <Entry Placeholder="Insert your username"
+                       HorizontalTextAlignment="Center"
+                       BackgroundColor="Transparent"
+                       TextColor="Black"
+                       x:Name="txt_username"
+                       Completed="OnEntryCompleted"
+                       FontSize="16"/>
+            </Frame>
 
-        <!-- Bottone Rules -->
-        <Button Text="Rules"
-                BackgroundColor="White"
-                TextColor="Black"
-                FontSize="16"
-                HeightRequest="45"
-                CornerRadius="10"
-                Margin="0"
-                Clicked="OnRulesClicked"/>
+            <!-- Bottone Play -->
+            <Button Text="Play"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    FontSize="16"
+                    HeightRequest="45"
+                    CornerRadius="10"
+                    Margin="0"
+                    Clicked="OnPlayClicked"/>
 
-        <!-- Crediti -->
-        <Label Text="Made by Mario, Endri, Pietro"
-               FontSize="12"
-               TextColor="#888888"
-               HorizontalOptions="Center"
-               Margin="0,20,0,0"/>
-    </VerticalStackLayout>
+            <!-- Bottone Rules -->
+            <Button Text="Rules"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    FontSize="16"
+                    HeightRequest="45"
+                    CornerRadius="10"
+                    Margin="0"
+                    Clicked="OnRulesClicked"/>
+
+            <!-- Crediti -->
+            <Label Text="Made by Mario, Endri, Pietro"
+                   FontSize="12"
+                   TextColor="#888888"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
