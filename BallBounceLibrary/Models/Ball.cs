@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace BallBounceLibrary.Models
         Normal,
         JumpBoost
     }
+    
     public class Ball
     {
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
@@ -18,9 +20,11 @@ namespace BallBounceLibrary.Models
         public static readonly double JumpNormal = 0.16;
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
         //VOLEVO FARLI COSTANTI MA NON SI PUÓ FARE WTF
-        public Ball(Coordinates positionOfBall, String Name)
+        public Ball(Coordinates positionOfBall, String name)
         {
             PositionOfBall = positionOfBall;
+            if (string.IsNullOrEmpty(name)) { name = "user"; }
+            Username = name;
         }
         public const double BOOST_UNITY = 0.05;
         public Coordinates PositionOfBall { get; private set; }
@@ -38,6 +42,9 @@ namespace BallBounceLibrary.Models
                 PositionOfBall.X -= 0.1;
             }
         }
+        public int Wins { get; set; }
+        public int Losses { get; set; }
+        public string Username { get; private set; }
         public bool IsFalling { get; set; }
         public bool IsJumping { get; set; }
         public bool IsOnTrampoline { get; set; }

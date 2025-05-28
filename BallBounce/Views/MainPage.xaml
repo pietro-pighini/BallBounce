@@ -23,6 +23,8 @@
                HorizontalTextAlignment="Center"
                BackgroundColor="Transparent"
                TextColor="Black"
+               x:Name="txt_username"
+               Completed="OnEntryCompleted"
                FontSize="16"/>
         </Frame>
 

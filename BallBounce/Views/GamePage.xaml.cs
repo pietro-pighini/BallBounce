@@ -255,11 +255,13 @@ public partial class GamePage : ContentPage
         if (IsOutOfBounds())
         {
             LostGame();
+            CurrentGame.Player.Losses ++;
             Status = GameStatus.LOST;
         }
         else if (CurrentGame.Player.IsOnLastPlatform)
         {
             WonGame();
+            CurrentGame.Player.Wins ++;
             Status = GameStatus.WON;
         }
         else
