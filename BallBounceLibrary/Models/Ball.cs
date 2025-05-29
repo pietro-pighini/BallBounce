@@ -20,6 +20,7 @@ namespace BallBounceLibrary.Models
         public static readonly double JumpNormal = 0.16;
         // DATO CHE NON SI POSSONO FARE ENUMERATIVI DOUBLE
         //VOLEVO FARLI COSTANTI MA NON SI PUÓ FARE WTF
+        public Ball() { }
         public Ball(Coordinates positionOfBall, String name)
         {
             PositionOfBall = positionOfBall;

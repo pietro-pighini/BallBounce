@@ -10,6 +10,7 @@
             CornerRadius="0"
             HorizontalOptions="Start"
             VerticalOptions="Start"
+            ZIndex="1"
             Margin="10">
             <VerticalStackLayout Spacing="5">
                 <HorizontalStackLayout>
@@ -30,7 +31,7 @@
         <!-- Contenuto principale -->
         <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
             <!-- Logo -->
-            <Image Source="logo.png" HeightRequest="300" HorizontalOptions="Center"/>
+            <Image Source="logo.png" HeightRequest="300" HorizontalOptions="Center" ZIndex="0"/>
 
             <!-- Username input -->
             <Frame

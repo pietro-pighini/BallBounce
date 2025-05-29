@@ -13,6 +13,7 @@ namespace BallBounceLibrary.Models
             X=x;
             Y = y;
         }
+        public Coordinates() { }
         public double X { get;  set; }
         public double Y { get;  set; }
     }
