@@ -209,15 +209,15 @@ public partial class GamePage : ContentPage
             {
                 // Crea una nuova istanza del gioco e della pagina  
                 PlatformGenerator platformGenerator = new PlatformGenerator();
-                Coordinates coords = new Coordinates(0.5, 0.9);
                 platformGenerator.AllPlatforms.Insert(0, new Platforms(new Coordinates(0.5, 0.999), PlatformType.Normal)); // lo metto alla posizione 0  
-                Game game = new Game(new Ball(coords, "gigi"), platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
+                ResetValuesOfBall();
+                Game game = new Game(CurrentGame.Player, platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
                 await Navigation.PushAsync(new GamePage(game, this.Main));
             }
             else
             {
             // Chiude la finestra corrente e riapre la MainPage  
-            CurrentGame.Player.PositionOfBall = new Coordinates(0.5, 0.9);//perché sennó la palla rimane fuori dallo schermo nella nuova partita
+            ResetValuesOfBall();
             await Navigation.PopAsync();
             await Navigation.PopToRootAsync();
             }
@@ -232,17 +232,17 @@ public partial class GamePage : ContentPage
         {
             // Crea una nuova istanza del gioco e della pagina  
             PlatformGenerator platformGenerator = new PlatformGenerator();
-            Coordinates coords = new Coordinates(0.5, 0.9);
             platformGenerator.AllPlatforms.Insert(0, new Platforms(new Coordinates(0.5, 0.999), PlatformType.Normal));//lo metto alla posizone 0
-            Game game = new Game(new Ball(coords, "gigi"), platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
+            ResetValuesOfBall();
+            Game game = new Game(CurrentGame.Player, platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
             await Navigation.PushAsync(new GamePage(game,this.Main));
             //ora devo chiudere questa pagina peró
             
         }
         else
         {
+            ResetValuesOfBall();
             // Chiude la finestra corrente e riapre la MainPage  
-            CurrentGame.Player.PositionOfBall = new Coordinates(0.5, 0.9);//perché sennó la palla rimane fuori dallo schermo nella nuova partita
             await Navigation.PopAsync();
             await Navigation.PopToRootAsync();
 
@@ -302,6 +302,14 @@ public partial class GamePage : ContentPage
             PlatformType.Trap => "trap.png",
             _ => "platform.png"
         };
+    }
+    private void ResetValuesOfBall()
+    {
+        CurrentGame.Player.PositionOfBall = new Coordinates(0.5, 0.9);
+        CurrentGame.Player.IsOnLastPlatform = false;
+        CurrentGame.Player.IsOnTrampoline = false;
+        CurrentGame.Player.IsOnTrap = false;
+        CurrentGame.Player.IsOnNormal = true;
     }
 
 }
