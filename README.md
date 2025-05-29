@@ -10,7 +10,7 @@ MARIO LATIFI Responsabile Progettazione OOP <br>
 
 ## 🎮 Scarica l'APK
 
-👉 [Download APK]([https://drive.google.com/file/d/13EOkzHGmhdkql0L66u_Mpfs5ZXUGG4WB/view](https://drive.google.com/drive/folders/1WquucHaQh4VjnZkkh4CF6_7yxuxb-6L8)) 
+👉 [Download APK](https://www.dropbox.com/scl/fo/oh70j2cgnwby6y50hk11s/ALYyVj_-LadLZCd43Kjdlow?rlkey=uh3dieorqjwer625xj9vp973d&st=wt05pplf&dl=0)
 
 ## 🎯 Obiettivi Iniziali
 - Realizzare un videogioco completo e funzionante con .NET MAUI, compatibile con dispositivi mobili (Android/iOS) e desktop.
