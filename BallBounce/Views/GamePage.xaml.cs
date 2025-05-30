@@ -201,54 +201,35 @@ public partial class GamePage : ContentPage
 
 
     }
+    private int _woncounter = 0;
+    private int _lostcounter = 0;
     private async void WonGame()
     {
-            // Mostra un messaggio di vittoria  
-            bool retry = await DisplayAlert("CONTRATULATIONS!", "You won the game!", "Play Again", "ESC");
-            if (retry)
-            {
-                // Crea una nuova istanza del gioco e della pagina  
-                PlatformGenerator platformGenerator = new PlatformGenerator();
-                platformGenerator.AllPlatforms.Insert(0, new Platforms(new Coordinates(0.5, 0.999), PlatformType.Normal)); // lo metto alla posizione 0  
-                ResetValuesOfBall();
-                Game game = new Game(CurrentGame.Player, platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
-                await Navigation.PushAsync(new GamePage(game, this.Main));
-            }
-            else
-            {
-            // Chiude la finestra corrente e riapre la MainPage  
-            ResetValuesOfBall();
-            await Navigation.PopAsync();
-            await Navigation.PopToRootAsync();
-            }
+        
+        // Mostra un messaggio di vittoria  
+        await DisplayAlert("CONTRATULATIONS!", "You won the game!", null, "ESC");
+        _woncounter++;
+        // Chiude la finestra corrente e riapre la MainPage  
+        ResetValuesOfBall();
+        if (_woncounter != 1) { CurrentGame.Player.Wins--; }
+        await Navigation.PopAsync();
+        await Navigation.PopToRootAsync();
         Main.UpdatePlayerStats(CurrentGame.Player);
         Main.SavePlayersToFile("players.json");
     }
     private async void LostGame()
     {
         
-        bool retry = await DisplayAlert("Game Over", "You lost the game!", "Try Again", "ESC");
-        if (retry)
-        {
-            // Crea una nuova istanza del gioco e della pagina  
-            PlatformGenerator platformGenerator = new PlatformGenerator();
-            platformGenerator.AllPlatforms.Insert(0, new Platforms(new Coordinates(0.5, 0.999), PlatformType.Normal));//lo metto alla posizone 0
-            ResetValuesOfBall();
-            Game game = new Game(CurrentGame.Player, platformGenerator, new PowerUpGenerator(platformGenerator.AllPlatforms));
-            await Navigation.PushAsync(new GamePage(game,this.Main));
-            //ora devo chiudere questa pagina peró
-            
-        }
-        else
-        {
-            ResetValuesOfBall();
-            // Chiude la finestra corrente e riapre la MainPage  
-            await Navigation.PopAsync();
-            await Navigation.PopToRootAsync();
-
-        }
+        await DisplayAlert("Game Over", "You lost the game!", null, "ESC");
+        _lostcounter++;
+        ResetValuesOfBall();
+        // Chiude la finestra corrente e riapre la MainPage  
+        if (_woncounter > 1) { CurrentGame.Player.Losses--; }
+        await Navigation.PopAsync();
+        await Navigation.PopToRootAsync();
         Main.UpdatePlayerStats(CurrentGame.Player);
         Main.SavePlayersToFile("players.json");
+        
     }
     private bool IsOutOfBounds()
     {
