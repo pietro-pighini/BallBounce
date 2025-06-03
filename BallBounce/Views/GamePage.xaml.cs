@@ -224,7 +224,7 @@ public partial class GamePage : ContentPage
         _lostcounter++;
         ResetValuesOfBall();
         // Chiude la finestra corrente e riapre la MainPage  
-        if (_woncounter > 1) { CurrentGame.Player.Losses--; }
+        if (_lostcounter > 1) { CurrentGame.Player.Losses--; }
         await Navigation.PopAsync();
         await Navigation.PopToRootAsync();
         Main.UpdatePlayerStats(CurrentGame.Player);
